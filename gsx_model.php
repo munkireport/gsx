@@ -99,7 +99,7 @@ class Gsx_model extends \Model
         // Useful for stopping lookups if IP address changes
         if (conf('gsx_enable')) {
             // Load gsx helper
-                require_once(conf('application_path').'helpers/gsx_helper.php');
+                require_once(__DIR__.'/helpers/gsx_helper.php');
             
                 get_gsx_stats($this);
                 // ^^ Comment and uncomment to turn off and on
@@ -116,6 +116,8 @@ class Gsx_model extends \Model
      **/
     public function process()
     {
+        // Add local config
+        configAppendFile(__DIR__ . '/config.php');
         $this->run_gsx_stats();
     }
 }
