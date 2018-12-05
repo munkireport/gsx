@@ -44,7 +44,7 @@ function get_gsx_stats(&$gsx_model)
         // If obsolete, process and run stock warranty lookup
         if ($e->getMessage() === "The serial number entered has been marked as obsolete. If you feel this is in error, please verify and re-enter the serial number.") {
         // Load warranty_helper and run stock warranty functions
-            require_once(conf('application_path').'helpers/warranty_helper.php');
+            require_once(conf('module_path') . 'warranty/helpers/warranty_helper.php');
             $gsx_model->productdescription = model_description_lookup($gsx_model->serial_number);
             $gsx_model->warrantystatus = 'Obsolete';
             $gsx_model->warrantymod = 'Expired';
@@ -98,7 +98,7 @@ function get_gsx_stats(&$gsx_model)
     // Catch GSX lookup fails
     if ($result === false) {
     // Load warranty_helper and run stock warranty functions
-        require_once(conf('application_path').'helpers/warranty_helper.php');
+        require_once(conf('module_path').'warranty/helpers/warranty_helper.php');
         $gsx_model->warrantystatus = 'GSX lookup failed';
         $gsx_model->productdescription = model_description_lookup($gsx_model->serial_number);
         $gsx_model->warrantymod = "Lookup failed";
