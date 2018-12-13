@@ -51,8 +51,17 @@ Data can be viewed under the GSX tab on the client details page or using the GSX
 
 ## Configuration
 
-Before you use the GSX module, you need to configure the `config.php` file with your GSX account information.
-See: https://github.com/munkireport/munkireport-php/blob/master/config_default.php#L348-L375
+Before you use the GSX module, you need to configure the `.env` file with your GSX account information. Some variables are not required.
+
+```sh
+GSX_ENABLE=true
+GSX_CERT='/path/to/certbundle.pem'
+GSX_CERT_KEYPASS='pass'
+GSX_SOLD_TO='00000xxxxx'
+GSX_SHIP_TO='00000xxxxx'
+GSX_USERNAME='gsx_user@domain.com'
+GSX_DATE_FORMAT='m/d/y'
+```
 
 ## Making the `certbundle.pem`
 
