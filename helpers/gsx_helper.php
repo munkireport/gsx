@@ -79,10 +79,13 @@ function get_gsx_stats(&$gsx_model)
             $warranty->save();
 
         // Update the stock machine tables
-            $machine = new Machine_model($gsx_model->serial_number);
-            //$machine->img_url = $matches[1]; Todo: get image url for VM
-            $machine->machine_desc = $gsx_model->productdescription;
-            $machine->save();
+            Machine_model::updateOrCreate(
+                ['serial_number' => $gsx_model->serial_number],
+                [
+                    'serial_number' => $gsx_model->serial_number,
+                    'machine_desc' => $gsx_model->productdescription,
+                ]
+            );
 
             $gsx_model->save();
             $error = 'GSX Lookup failed - machine is Obsolete - running stock warranty lookup';
@@ -158,10 +161,13 @@ function get_gsx_stats(&$gsx_model)
         }
         
         // Update the stock machine tables
-        $machine = new Machine_model($gsx_model->serial_number);
-        //$machine->img_url = $matches[1]; Todo: get image url for VM
-        $machine->machine_desc = str_replace(array('~VIN,'), array(''), $result->productDescription);
-        $machine->save();
+        Machine_model::updateOrCreate(
+            ['serial_number' => $gsx_model->serial_number],
+            [
+                'serial_number' => $gsx_model->serial_number,
+                'machine_desc' => str_replace(array('~VIN,'), [''], $result->productDescription),
+            ]
+        );
         
         // Translate gsxlib to MunkiReport DB
         $gsx_model->warrantymod = $local_warrantyStatus;
